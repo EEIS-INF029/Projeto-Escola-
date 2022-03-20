@@ -148,8 +148,8 @@ int menuPrincipal()
 {
   int opcao;
   printf("INSIRA A OPÇÃO DESEJADA\n");
-  printf("1 - Alunos\n");
-  printf("2 - Professores\n");
+  printf("1 - Discentes\n");
+  printf("2 - Docentes\n");
   printf("0 - Sair\n");
   scanf("%d", &opcao);
   getchar();
@@ -160,9 +160,11 @@ int menuPrincipal()
 int menuAluno()
 {
   int opcaoCad;
+  printf("======================");
   printf("INSIRA A OPÇÃO DESEJADA\n");
-  printf("1 - Cadastrar aluno\n");
-  printf("2 - Listar aluno\n");
+  printf("======================");
+  printf("1 - Cadastrar discentes\n");
+  printf("2 - Listar discentes\n");
   printf("0 - Voltar\n");
   scanf("%d", &opcaoCad);
   getchar();
@@ -173,9 +175,11 @@ int menuAluno()
 int menuProfessor()
 {
   int opcaoList;
+  printf("======================");
   printf("INSIRA A OPÇÃO DESEJADA\n");
-  printf("1 - Cadastrar professor\n");
-  printf("2 - Listar de professores\n");
+  printf("======================");
+  printf("1 - Cadastrar docentes\n");
+  printf("2 - Listar de docentes\n");
   printf("0 - Voltar\n");
   scanf("%d", &opcaoList);
   getchar();
@@ -186,9 +190,9 @@ int menuProfessor()
 
 int cadastrarAluno(aluno lista_de_alunos[], int qtd_aluno)
 {
-  printf("==============================\n");
-  printf("||Cadastro do(a) %d° aluno(a)||\n", qtd_aluno + 1);
-  printf("==============================\n");
+  printf("=====================\n");
+  printf("Cadastro de discentes\n");
+  printf("=====================\n");
   printf("\n");
   printf("Nome: ");
   fgets(lista_de_alunos[qtd_aluno].nome, 50, stdin);
@@ -213,9 +217,9 @@ int cadastrarAluno(aluno lista_de_alunos[], int qtd_aluno)
 
 int cadastrarProfessor(professor lista_de_professores[], int qtd_professor)
 {
-  printf("==================================\n");
-  printf("||Cadastro do(a) %d° professor(a)||\n", qtd_professor + 1);
-  printf("==================================\n");
+  printf("=====================\n");
+  printf("Cadastro de docentes)\n");
+  printf("=====================\n");
   printf("\n");
   printf("Nome do Professor: ");
   fgets(lista_de_professores[qtd_professor].nome, 50, stdin);

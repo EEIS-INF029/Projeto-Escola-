@@ -1,221 +1,298 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
-#define TAM 2
+#include <locale.h>
+#define tamAlunos 10
+#define tamProfessores 10
 
-int main()
+/*Comando para copiar o código*/
+/*gcc ian.c -o ian -Wno-unused-result*/
+//Struct de data
+typedef struct dataNascimento{
+    int dia;
+    int mes;
+    int ano;
+}data;
+//Struct alunos
+typedef struct cadastroAluno
 {
-    typedef struct dma{
-      int dia;
-      int mes; 
-      int ano;
-    }  data;
+  char nome[50];
+  char cpf[16];
+  data dataNasc; 
+  char sexo;
+  char matricula[15];
+} aluno;
+
+//Struct professores
+typedef struct dadosProfessores
+{
+  char nome[50];
+  char matricula[15];
+  char nascimento[11];
+  char sexo;
+  char cpf[16];
+} professor;
+
+
+int menuPrincipal();
+int discentes();
+int cadastrarAluno(aluno lista_de_alunos[], int qtd_aluno);
+int listarAlunos(aluno lista_de_alunos[], int qtd_aluno);
+
+int listarAlunoSexo(aluno lista_de_alunos[], int qtd_aluno);
+int validaData(aluno lista_de_alunos[], int qtd_aluno);
+//Prototipos das funcoes
+/*int menuPrincipal();
+int menuCadastro();
+int menuListagem();
+int cadastrarAluno(aluno lista_de_alunos[], int qtd_aluno);
+int cadastrarProfessor(professor lista_de_professores[], int qtd_professor);
+int listarProfessores(professor lista_de_professores[], int qtd_professor);
+*/
+
+int main(){
+    setlocale(LC_ALL,"Portuguese"); 
+    aluno lista_de_alunos[tamAlunos]; //tamAlunos
+    professor lista_de_professores[tamProfessores]; //tamProfessor
+    int opcao, opcaoCad, opcaoList, variavel;
+    int qtd_aluno, qtd_professor, qtd_disciplina;
+    int menu_aluno;
+    qtd_aluno = 0;
+    qtd_professor = 0;
+    qtd_disciplina = 0;
+
   
-    typedef struct dados_aluno {
-        char nome_aluno[51];
-        char matricula_aluno[12];
-        char sexo_aluno;
-        data nascimento_aluno;
-        char CPF_aluno;
-        char data_nasc_aluno[11];
-    } aluno;
-    
-    typedef struct dados_prof {
-        char nome_prof[51];
-        char matricula_prof[12];
-        char sexo_prof;
-        data nascimento_prof;
-        char CPF_prof;
-        char data_nasc_prof[11];
-    } professor;
-    
-    int qtd_aluno, qtd_prof, contador;
-    int variavel, i, fim;
-    
-    printf ("Digite o número de alunos: ");
-    scanf ("%d", &qtd_aluno);
-    getchar ();
-    printf ("Digite o número de professores: ");
-    scanf ("%d", &qtd_prof);
-    getchar ();
-    
-    
-    aluno discente[qtd_aluno];
-    professor docente[qtd_prof];
-    
-  //ALUNO
-    for (contador = 0; contador < qtd_aluno; contador++){
-        printf ("** Cadastro de aluno **\n");
-        printf ("Digite seu nome: ");
-        fgets (discente[contador].nome_aluno, 51, stdin);
-        size_t ln = strlen (discente[contador].nome_aluno) - 1;
-        if (discente[contador].nome_aluno[ln] = '\n')
-            discente[contador].nome_aluno[ln] = '\0';
+    do {
+      system ("cls || clear");
+      opcao = menuPrincipal();
+      switch (opcao){
+        case 0: 
+          printf("O sistema foi encerrado!");
+          break;
+
+        case 1: 
+          menu_aluno = discentes();
+          switch (menu_aluno){
+            case 0:  
+              break;
+            case 1: 
+              if (qtd_aluno<tamAlunos){
+                variavel = cadastrarAluno(lista_de_alunos, qtd_aluno);
+                qtd_aluno++;
+                }
+              else 
+                printf("Lista de alunos cheia");
+                printf ("Pressione uma tecla para voltar!");
+                getchar ();
+                system("cls || clear");
+              break;
+
+            case 2:
+              variavel = listarAlunos ( lista_de_alunos, qtd_aluno);
+              int listarAlunos(aluno lista_de_alunos[], int qtd_aluno);
+              break;
+            case 3:  
+              variavel = listarAlunoSexo(lista_de_alunos,qtd_aluno);
+              printf("Digite uma tecla para sair!");
+              getchar();
+              system("cls || clear");
+              break;
+            case 4: printf("erro 4");
+              
+              system("cls || clear");
+              break;
+
             
-        printf ("Digite sua matrícula:");
-        fgets (discente[contador].matricula_aluno, 51, stdin);
-        ln = strlen (discente[contador].matricula_aluno) - 1;
-        if (discente[contador].matricula_aluno[ln] = '\n')
-            discente[contador].matricula_aluno[ln] = '\0';
-   
-        printf ("Digite seu sexo (M - masculino e F - feminino): ");
-        scanf ("%c", &discente[contador].sexo_aluno);
+            case 5: printf("erro 5");break;
+              system("cls || clear");
+            }
 
-        printf ("Digite o dia de nascimento: \n");
-        scanf ("%d", &discente[contador].nascimento_aluno.dia);
-        getchar ();
-        printf ("Digite o mês de nascimento: \n");
-        scanf ("%d", &discente[contador].nascimento_aluno.mes);
-        getchar ();
-        printf ("Digite o ano de nascimento: \n");
-        scanf ("%d", &discente[contador].nascimento_aluno.ano);
-        getchar ();
-        
-    }
-
-  //PROFESSOR 
-    for (contador = 0; contador < qtd_prof; contador++){
-        printf ("** Cadastro de professor **\n");
-        printf ("Digite seu nome: ");
-        fgets (docente[contador].nome_prof, 51, stdin);
-        size_t ln = strlen (docente[contador].nome_prof) - 1;
-        if (docente[contador].nome_prof[ln] = '\n')
-            docente[contador].nome_prof[ln] = '\0';
-            
-        printf ("Digite sua matrícula:");
-        fgets (docente[contador].matricula_prof, 51, stdin);
-        ln = strlen (docente[contador].matricula_prof) - 1;
-        if (docente[contador].matricula_prof[ln] = '\n')
-            docente[contador].matricula_prof[ln] = '\0';
-   
-        printf ("Digite seu sexo (M - masculino e F - feminino): ");
-        scanf ("%c", &docente[contador].sexo_prof);
-      
-        printf ("Digite o dia de nascimento: \n");
-        scanf ("%d", &docente[contador].nascimento_prof.dia);
-        getchar ();
-        printf ("Digite o mês de nascimento: \n");
-        scanf ("%d", &docente[contador].nascimento_prof.mes);
-        getchar ();
-        printf ("Digite o ano de nascimento: \n");
-        scanf ("%d", &docente[contador].nascimento_prof.ano);
-        getchar ();
-        
-    }
-
-       
-// RELATÓRIOS
-  
-  printf("Você deseja imprimir algum relatório? Digite 1 para sim e 2 para não.\n");
-  scanf ("%d", &variavel);
-  getchar ();
-  if (variavel == 1){
-    printf("Digite o número correspondente a ação que deseja realizar:\n 1 - Listar alunos\n 2 - Listar professores\n 3 - Listar disciplinas\n 4 - Listar uma disciplina\n 5 - Listar alunos por sexo\n 6 - Listar alunos ordenados por nome\n 7 - Listar alunos ordenados por data de nascimento\n  8 - Listar professores por sexo\n 9 - Listar professores ordenados por data de nascimento\n 10 - Aniversariantes do mês\n 11 - Listar por busca \n 12 - Lista de alunos matriculados em pelo menos 3 disciplinas\n 13 - Lista de disciplinas, com nome do professor, que extrapolam 40 vagas\n");
-      
-    scanf("%d", &variavel);
-    getchar ();
-    
-    switch (variavel){
-      // ESTAREI SEPARANDO OS CASOS COM ASTERISCO PARA 
-      // FACILITAR A VISUALIZAÇÃO
-      case 1 : printf(" ##Lista de Alunos ##\n");
-      for(contador = 0, i = 1; contador < qtd_aluno; i++, contador++){
-        printf (" %d - %s\n", i, discente[contador].nome_aluno);
+/*
+        case 2: 
+          variavel = docentes ();
+          break;
+   */     
       }
-      break;
       
-      /*****************************/
-      case 2 : printf(" ##Lista de Professores ##\n");
-      for(contador = 0, i = 1; contador < qtd_prof; i++, contador++){
-        printf (" %d - %s\n", i,docente[contador].nome_prof);
-      } 
-        break;
+    } while (opcao != 0);
 
-      /*****************************/
-      case 3 :break;
-
-      /*****************************/
-      case 4 : break;
-
-      /*****************************/
-      case 5 : printf ("##Discentes (Homens) ##\n"); 
-        for (contador = 0, i = 1; contador<qtd_aluno; contador++){
-          if (discente[contador].sexo_aluno == 'M'){
-            printf("%s\n", discente[contador].nome_aluno);
-            
-          } 
-        } 
-        printf ("##Discentes (Mulheres) ##\n");
-        for (contador = 0, i = 1; contador<qtd_aluno; contador++){
-          if (discente[contador].sexo_aluno == 'F'){
-            printf("%s\n", discente[contador].nome_aluno);
-            
-          } 
-        }    
-        
-        break;
-
-      /*****************************/
-      case 6 : 
-      break;
-      
-      /*****************************/
-      case 7 : break;
-
-      /*****************************/
-      case 8 : printf ("##Docentes (Homens) ##\n"); 
-        for (contador = 0; contador<qtd_prof; contador++){
-          if (docente[contador].sexo_prof == 'M'){
-            printf("%c\n", docente[contador].sexo_prof);
-            
-          } 
-        } 
-        printf ("##Docentes (Mulheres) ##\n");
-        for (contador = 0; contador<qtd_prof; contador++){
-          if (docente[contador].sexo_prof == 'F'){
-            printf("%c\n", docente[contador].sexo_prof);
-            
-          } 
-        }    
-        
-      break;
-
-      /*****************************/
-      case 9 : break;
-
-      /*****************************/
-      case 10 :   printf("Digite o mês: ");
-      scanf ("%d", &variavel);
-      getchar ();
-      printf("Aniversariantes do Mês - Alunos\n");
-      for (contador = 0; contador<qtd_aluno; contador++){
-          if (discente[contador].nascimento_aluno.mes == variavel)
-            printf("%s\n", discente[contador].nome_aluno); 
-        } 
-        printf ("Aniversariantes do Mês - Professores\n");
-        for (contador = 0; contador<qtd_prof; contador++){
-          if (docente[contador].nascimento_prof.mes == variavel){
-            printf("%s\n", docente[contador].nome_prof);
-            
-          } 
-        } 
-        
-      break;
-
-      /*****************************/
-      case 11 : break;
-
-      /*****************************/
-      case 12 : break;
-
-      /*****************************/
-      case 13 : break;
-    }
-  }
-
-  else {
-    printf ("O programa encerrou!");
-  }
-       
-    
 
 }
+
+//Menus
+
+int menuPrincipal(){
+    int opcao; 
+    printf("INSIRA A OPÇÃO DESEJADA\n");
+    printf("1 - Dados dos discentes\n");
+    printf("2 - Dados dos docentes\n"); 
+    printf("3 - Dados das disciplinas\n");
+    printf("0 - Sair\n");
+    scanf("%d", &opcao);
+    getchar();  
+    system("cls || clear");
+    return opcao;
+}
+
+int discentes (){
+    int menu_aluno;
+    printf("###########################\n");
+    printf("   DADOS DOS DISCENTES    \n");
+    printf("###########################\n");
+    printf("Insira a opção desejada: \n");
+    printf("1 - Cadastrar discente\n");
+    printf("2 - Listar discentes\n"); 
+    printf("3 - Listar discentes por sexo\n");
+    printf("4 - Listar discentes ordenados por nome\n");
+    printf("5 - Listar discentes ordenados por data de nascimento\n");
+    printf("0 - Sair\n");
+    scanf ("%d", &menu_aluno);
+    getchar();
+    system ("cls || clear");
+          
+    return menu_aluno; 
+  }
+
+//Cadastros
+
+int cadastrarAluno(aluno lista_de_alunos[], int qtd_aluno)
+{
+    int erroData;
+    printf("==============================\n");
+    printf("||Cadastro do(a) %d° aluno(a)||\n", qtd_aluno + 1);
+    printf("==============================\n");
+    printf("\n");
+    printf("Nome: ");
+    fgets(lista_de_alunos[qtd_aluno].nome, 50, stdin);
+    printf("Matrícula: ");
+    fgets(lista_de_alunos[qtd_aluno].matricula, 15, stdin);
+    validaData(lista_de_alunos, qtd_aluno);  
+    getchar();
+    printf("Sexo: ");
+    scanf("%c", &lista_de_alunos[qtd_aluno].sexo);
+    getchar();
+    printf("CPF: ");
+    fgets(lista_de_alunos[qtd_aluno].cpf, 16, stdin);
+    printf("\n");
+    system("cls || clear"); 
+}
+
+int validaData(aluno lista_de_alunos[], int qtd_aluno){
+  int contador, quebra;
+    for (contador = 0, quebra = 1; contador != quebra; ){
+      printf("Insira a data de nascimento:\n");
+      printf("Dia: ");
+      scanf("%d", &lista_de_alunos[qtd_aluno].dataNasc.dia);
+      if (lista_de_alunos[qtd_aluno].dataNasc.dia >= 01 && lista_de_alunos[qtd_aluno].dataNasc.dia< 32)
+        quebra = 0;
+      else 
+        printf ("Digite uma data válida!\n");
+        
+    }
+
+  for (contador = 0, quebra = 1; contador != quebra; ){
+      printf("Mês: ");
+      scanf("%d", &lista_de_alunos[qtd_aluno].dataNasc.mes);
+      if (lista_de_alunos[qtd_aluno].dataNasc.mes >= 01 && lista_de_alunos[qtd_aluno].dataNasc.mes< 13)
+        quebra = 0;
+      else 
+        printf ("Digite uma data válida!\n");
+        
+    }
+
+  for (contador = 0, quebra = 1; contador != quebra; ){
+      printf("Ano: ");
+      scanf("%d", &lista_de_alunos[qtd_aluno].dataNasc.ano);
+      if (lista_de_alunos[qtd_aluno].dataNasc.ano >= 1903 && lista_de_alunos[qtd_aluno].dataNasc.ano < 2022)
+        quebra = 0;
+      else 
+        printf ("Digite uma data válida!\n");
+        
+    }
+}
+
+int listarAlunos(aluno lista_de_alunos[], int qtd_aluno){
+    int j; 
+    printf("======================\n");
+    printf("||Alunos cadastrados||\n");
+    printf("======================\n");
+    for (j = 0; j < qtd_aluno; j++){
+        printf("\n");
+        printf("Nome: %s", lista_de_alunos[j].nome);
+        printf("Matrícula: %s", lista_de_alunos[j].matricula);
+        printf("Data de nascimento: %d/%d/%d\n",lista_de_alunos[j].dataNasc.dia,
+                                                lista_de_alunos[j].dataNasc.mes,
+                                                lista_de_alunos[j].dataNasc.ano);
+        printf("Sexo: %c\n", lista_de_alunos[j].sexo);
+        printf("CPF: %s", lista_de_alunos[j].cpf);
+        printf("=======================================\n");
+    }
+    printf("Pressione para voltar...");
+    getchar(); 
+    system("cls || clear");
+}
+
+int listarAlunoSexo (aluno lista_de_alunos[], int qtd_aluno){
+    int contador;
+    printf("## Lista de Alunos##\n");
+    for (contador = 0; contador < qtd_aluno; contador++){
+      if (lista_de_alunos[contador].sexo == 'M' || lista_de_alunos[contador].sexo == 'm' ){
+        printf ("%d - %s", contador + 1, lista_de_alunos[contador].nome);  
+      }
+    }
+    printf("## Lista de Alunas##\n");
+    for (contador = 0; contador < qtd_aluno; contador++){
+      if (lista_de_alunos[contador].sexo == 'F' || lista_de_alunos[contador].sexo == 'f' ){
+        printf ("%d - %s", contador + 1, lista_de_alunos[contador].nome);  
+      }
+
+      }
+}
+
+int cadastrarProfessor(professor lista_de_professores[], int qtd_professor)
+{
+    printf("==================================\n");
+    printf("||Cadastro do(a) %d° professor(a)||\n", qtd_professor + 1);
+    printf("==================================\n");
+    printf("\n");
+    printf("Nome do Professor: ");
+    fgets(lista_de_professores[qtd_professor].nome, 50, stdin);
+    printf("Matrícula: ");
+    fgets(lista_de_professores[qtd_professor].matricula, 15, stdin);
+    printf("Data de nascimento: ");
+    fgets(lista_de_professores[qtd_professor].nascimento, 11, stdin);
+    getchar();
+    printf("Sexo: ");
+    scanf("%c", &lista_de_professores[qtd_professor].sexo);
+    getchar();
+    printf("CPF: ");
+    fgets(lista_de_professores[qtd_professor].cpf, 16, stdin);
+    printf("\n");
+    system("cls || clear");
+}
+//Listagens
+
+
+
+int listarProfessores(professor lista_de_professores[], int qtd_professor){
+    int j;
+    printf("===========================\n");
+    printf("||Professores cadastrados||\n");
+    printf("===========================\n");
+    for (j = 0; j < qtd_professor; j++){
+        printf("\n");
+        printf("Nome: %s", lista_de_professores[j].nome);
+        printf("Matrícula: %s", lista_de_professores[j].matricula);
+        printf("Data de nascimento: %s\n", lista_de_professores[j].nascimento);
+        printf("Sexo: %c\n", lista_de_professores[j].sexo);
+        printf("CPF: %s\n", lista_de_professores[j].cpf);
+        printf("=======================================\n");
+    }
+    printf("Pressione para voltar...");
+    getchar(); 
+    system("cls || clear");
+}
+
+
+////////////
+
