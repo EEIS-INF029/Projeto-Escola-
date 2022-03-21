@@ -4,7 +4,7 @@
 #include <locale.h>
 #define tamAlunos 10
 #define tamProfessores 10
-
+/*https://www.cursoemvideo.com/login/*/
 /*Comando para copiar o código*/
 /*gcc ian.c -o ian -Wno-unused-result*/
 //Struct de data
@@ -40,6 +40,8 @@ int cadastrarAluno(aluno lista_de_alunos[], int qtd_aluno);
 int listarAlunos(aluno lista_de_alunos[], int qtd_aluno);
 
 int listarAlunoSexo(aluno lista_de_alunos[], int qtd_aluno);
+int validaData(aluno lista_de_alunos[], int qtd_aluno);
+int validarSexo(aluno lista_de_alunos[], int qtd_aluno);
 //Prototipos das funcoes
 /*int menuPrincipal();
 int menuCadastro();
@@ -51,8 +53,8 @@ int listarProfessores(professor lista_de_professores[], int qtd_professor);
 
 int main(){
     setlocale(LC_ALL,"Portuguese"); 
-    aluno lista_de_alunos[tamAlunos]; //tamAlunos
-    professor lista_de_professores[tamProfessores]; //tamProfessor
+    aluno lista_de_alunos[tamAlunos]; 
+    professor lista_de_professores[tamProfessores]; 
     int opcao, opcaoCad, opcaoList, variavel;
     int qtd_aluno, qtd_professor, qtd_disciplina;
     int menu_aluno;
@@ -88,10 +90,8 @@ int main(){
 
             case 2:
               variavel = listarAlunos ( lista_de_alunos, qtd_aluno);
-
-
-            int listarAlunos(aluno lista_de_alunos[], int qtd_aluno);
-              
+              int listarAlunos(aluno lista_de_alunos[], int qtd_aluno);
+              break;
             case 3:  
               variavel = listarAlunoSexo(lista_de_alunos,qtd_aluno);
               printf("Digite uma tecla para sair!");
@@ -166,21 +166,61 @@ int cadastrarAluno(aluno lista_de_alunos[], int qtd_aluno)
     fgets(lista_de_alunos[qtd_aluno].nome, 50, stdin);
     printf("Matrícula: ");
     fgets(lista_de_alunos[qtd_aluno].matricula, 15, stdin);
-    printf("Insira a data de nascimento:\n");
-    printf("Dia: ");
-    scanf("%d", &lista_de_alunos[qtd_aluno].dataNasc.dia); 
-    printf("Mês: ");
-    scanf("%d", &lista_de_alunos[qtd_aluno].dataNasc.mes);
-    printf("Ano: ");
-    scanf("%d", &lista_de_alunos[qtd_aluno].dataNasc.ano); 
+    validaData(lista_de_alunos, qtd_aluno);  
     getchar();
-    printf("Sexo: ");
-    scanf("%c", &lista_de_alunos[qtd_aluno].sexo);
-    getchar();
+    validarSexo(lista_de_alunos, qtd_aluno); 
     printf("CPF: ");
     fgets(lista_de_alunos[qtd_aluno].cpf, 16, stdin);
     printf("\n");
     system("cls || clear"); 
+}
+
+//Funções de validação
+int validaData(aluno lista_de_alunos[], int qtd_aluno){
+  int contador, quebra;
+    for (contador = 0, quebra = 1; contador != quebra; ){
+      printf("Insira a data de nascimento:\n");
+      printf("Dia: ");
+      scanf("%d", &lista_de_alunos[qtd_aluno].dataNasc.dia);
+      if (lista_de_alunos[qtd_aluno].dataNasc.dia >= 01 && lista_de_alunos[qtd_aluno].dataNasc.dia< 32)
+        quebra = 0;
+      else 
+        printf ("Digite uma data válida!\n");
+        
+    }
+
+  for (contador = 0, quebra = 1; contador != quebra; ){
+      printf("Mês: ");
+      scanf("%d", &lista_de_alunos[qtd_aluno].dataNasc.mes);
+      if (lista_de_alunos[qtd_aluno].dataNasc.mes >= 01 && lista_de_alunos[qtd_aluno].dataNasc.mes< 13)
+        quebra = 0;
+      else 
+        printf ("Digite uma data válida!\n");
+        
+    }
+  
+  for (contador = 0, quebra = 1; contador != quebra; ){
+      printf("Ano: ");
+      scanf("%d", &lista_de_alunos[qtd_aluno].dataNasc.ano);
+      if (lista_de_alunos[qtd_aluno].dataNasc.ano >= 1903 && lista_de_alunos[qtd_aluno].dataNasc.ano < 2022)
+        quebra = 0;
+      else 
+        printf ("Digite uma data válida!\n");
+        
+    }
+}
+
+int validarSexo(aluno lista_de_alunos[], int qtd_aluno){
+  int contador, quebra;
+  for (contador = 0, quebra = 1; contador != quebra; ){
+      printf("Sexo: ");
+      scanf("%c", &lista_de_alunos[qtd_aluno].sexo);
+      getchar(); 
+      if (lista_de_alunos[qtd_aluno].sexo == 'F' || lista_de_alunos[qtd_aluno].sexo == 'f' || lista_de_alunos[qtd_aluno].sexo == 'M' || lista_de_alunos[qtd_aluno].sexo == 'm')
+          quebra = 0;
+      else 
+        printf ("Digite um sexo válido\n");
+    }
 }
 
 
@@ -265,3 +305,7 @@ int listarProfessores(professor lista_de_professores[], int qtd_professor){
     getchar(); 
     system("cls || clear");
 }
+
+
+////////////
+
