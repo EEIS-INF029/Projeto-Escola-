@@ -3,7 +3,7 @@
 #include <string.h>
 #include <locale.h>
 #define tamAlunos 4
-#define tamProfessores 0
+#define tamProfessores 2
 
 /**/
 /*Comando para copiar o código*/
@@ -98,8 +98,8 @@ int main()
             printf("Pressione uma tecla para voltar...");
             getchar();
             system("cls || clear");
-            break;
           }
+            break;
         case 2:
           listarAlunos(lista_de_alunos, qtd_aluno);
           int listarAlunos(aluno lista_de_alunos[], int qtd_aluno);
