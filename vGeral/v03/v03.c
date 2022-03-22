@@ -22,7 +22,7 @@ typedef struct cadastroAluno
   char cpf[16];
   data dataNasc;
   char sexo;
-  char matricula[15];
+  int matricula;
 } aluno;
 
 // Struct professores
@@ -46,13 +46,6 @@ int listarAlunoSexo(aluno lista_de_alunos[], int qtd_aluno);
 int validaData(aluno lista_de_alunos[], int qtd_aluno);
 int validarSexo(aluno lista_de_alunos[], int qtd_aluno);
 int excluirDiscente(aluno lista_de_alunos[], int qtd_aluno); 
-/*int menuPrincipal();
-int menuCadastro();
-int menuListagem();
-int cadastrarAluno(aluno lista_de_alunos[], int qtd_aluno);
-int cadastrarProfessor(professor lista_de_professores[], int qtd_professor);
-int listarProfessores(professor lista_de_professores[], int qtd_professor);
-*/
 
 int main()
 {
@@ -227,8 +220,9 @@ int cadastrarAluno(aluno lista_de_alunos[], int qtd_aluno)
   printf("\n");
   printf("Nome: ");
   fgets(lista_de_alunos[qtd_aluno].nome, 50, stdin);
-  printf("Matrícula: ");
-  fgets(lista_de_alunos[qtd_aluno].matricula, 15, stdin);
+  lista_de_alunos[qtd_aluno].matricula = qtd_aluno; 
+  printf("Matrícula: %d\n", lista_de_alunos[qtd_aluno].matricula );
+  //fgets(lista_de_alunos[qtd_aluno].matricula, 15, stdin);
   validaData(lista_de_alunos, qtd_aluno);
   getchar();
   validarSexo(lista_de_alunos, qtd_aluno);
@@ -264,7 +258,7 @@ int excluirDiscente(aluno lista_de_alunos[], int qtd_aluno){
   int id; 
   int i;
   //int remove_posicao; 
-  printf("Insira o id do discente");
+  printf("Insira o número da matrícula do discente: ");
   scanf("%d", &id);
   for(i = id; i < qtd_aluno; i++){
     lista_de_alunos[i] = lista_de_alunos[i + 1];  
@@ -335,7 +329,7 @@ int listarAlunos(aluno lista_de_alunos[], int qtd_aluno)
   {
     printf("\n");
     printf("Nome: %s", lista_de_alunos[j].nome);
-    printf("Matrícula: %s", lista_de_alunos[j].matricula);
+    printf("Matrícula: %d\n", lista_de_alunos[j].matricula);
     printf("Data de nascimento: %d/%d/%d\n", lista_de_alunos[j].dataNasc.dia,
            lista_de_alunos[j].dataNasc.mes,
            lista_de_alunos[j].dataNasc.ano);
