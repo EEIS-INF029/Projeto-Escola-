@@ -7,7 +7,7 @@
 
 /**/
 /*Comando para copiar o código*/
-/*gcc v03.c -o v02 -Wno-unused-result*/
+/*gcc v03.c -o v03 -Wno-unused-result*/
 // Struct de data
 typedef struct dataNascimento
 {
@@ -29,8 +29,8 @@ typedef struct cadastroAluno
 typedef struct dadosProfessores
 {
   char nome[50];
-  char matricula[15];
-  char nascimento[11];
+  int matricula;
+  data dataNasc;
   char sexo;
   char cpf[16];
 } professor;
@@ -43,9 +43,12 @@ int cadastrarAluno(aluno lista_de_alunos[], int qtd_aluno);
 int cadastrarProfessor(professor lisda_de_professores[], int qtd_professor);
 int listarAlunos(aluno lista_de_alunos[], int qtd_aluno);
 int listarAlunoSexo(aluno lista_de_alunos[], int qtd_aluno);
+int listarProfSexo(professor lista_de_professores[], int qtd_professor);
 int validaData(aluno lista_de_alunos[], int qtd_aluno);
 int validarSexo(aluno lista_de_alunos[], int qtd_aluno);
+int validarSexoProf(professor lista_de_professores[], int qtd_professor);
 int excluirDiscente(aluno lista_de_alunos[], int qtd_aluno); 
+int validaDataProf(professor lista_de_professores[], int qtd_professor);
 
 int main()
 {
@@ -105,7 +108,7 @@ int main()
           system("cls || clear");
           break;
         case 6:
-          qtd_aluno = excluirDiscente(lista_de_alunos, qtd_aluno);
+          excluirDiscente(lista_de_alunos, qtd_aluno);
           break; 
         default:
           printf("Insira uma opção valida");
@@ -140,6 +143,10 @@ int main()
         case 2:
           break;
         case 3:
+          listarProfSexo(lista_de_professores, qtd_professor);
+          printf("Pressione uma tecla para voltar...");
+          getchar();
+          system("cls || clear");
           break; 
         default:
           printf("Insira uma opção valida");
@@ -241,13 +248,10 @@ int cadastrarProfessor(professor lista_de_professores[], int qtd_professor)
   printf("Nome do Professor: ");
   fgets(lista_de_professores[qtd_professor].nome, 50, stdin);
   printf("Matrícula: ");
-  fgets(lista_de_professores[qtd_professor].matricula, 15, stdin);
-  printf("Data de nascimento: ");
-  fgets(lista_de_professores[qtd_professor].nascimento, 11, stdin);
+  scanf("%d", &lista_de_professores[qtd_professor].matricula);
+  validaDataProf(lista_de_professores, qtd_professor);
   getchar();
-  printf("Sexo: ");
-  scanf("%c", &lista_de_professores[qtd_professor].sexo);
-  getchar();
+  validarSexoProf(lista_de_professores, qtd_professor);
   printf("CPF: ");
   fgets(lista_de_professores[qtd_professor].cpf, 16, stdin);
   printf("\n");
@@ -260,10 +264,16 @@ int excluirDiscente(aluno lista_de_alunos[], int qtd_aluno){
   //int remove_posicao; 
   printf("Insira o número da matrícula do discente: ");
   scanf("%d", &id);
-  for(i = id; i < qtd_aluno; i++){
+  for(i = id; i < qtd_aluno - 1 ; i++){
     lista_de_alunos[i] = lista_de_alunos[i + 1];  
-    qtd_aluno--; 
+    qtd_aluno--;
   }
+  /*if(id == qtd_aluno - 1){
+      qtd_aluno--;
+    } else{
+        
+    }*/
+
 }
 // Funções de validação
 
@@ -302,6 +312,41 @@ int validaData(aluno lista_de_alunos[], int qtd_aluno)
   }
 }
 
+int validaDataProf(professor lista_de_professores[], int qtd_professor)
+{
+  int contador, quebra;
+  for (contador = 0, quebra = 1; contador != quebra;)
+  {
+    printf("Insira a data de nascimento:\n");
+    printf("Dia: ");
+    scanf("%d", &lista_de_professores[qtd_professor].dataNasc.dia);
+    if (lista_de_professores[qtd_professor].dataNasc.dia >= 01 && lista_de_professores[qtd_professor].dataNasc.dia < 32)
+      quebra = 0;
+    else
+      printf("Digite uma data válida!\n");
+  }
+
+  for (contador = 0, quebra = 1; contador != quebra;)
+  {
+    printf("Mês: ");
+    scanf("%d", &lista_de_professores[qtd_professor].dataNasc.mes);
+    if (lista_de_professores[qtd_professor].dataNasc.mes >= 01 && lista_de_professores[qtd_professor].dataNasc.mes < 13)
+      quebra = 0;
+    else
+      printf("Digite uma data válida!\n");
+  }
+
+  for (contador = 0, quebra = 1; contador != quebra;)
+  {
+    printf("Ano: ");
+    scanf("%d", &lista_de_professores[qtd_professor].dataNasc.ano);
+    if (lista_de_professores[qtd_professor].dataNasc.ano >= 1903 && lista_de_professores[qtd_professor].dataNasc.ano < 2022)
+      quebra = 0;
+    else
+      printf("Digite uma data válida!\n");
+  }
+}
+        
 int validarSexo(aluno lista_de_alunos[], int qtd_aluno)
 {
   int contador, quebra;
@@ -317,6 +362,21 @@ int validarSexo(aluno lista_de_alunos[], int qtd_aluno)
   }
 }
 
+
+int validarSexoProf(professor lista_de_professores[], int qtd_professor)
+{
+  int contador, quebra;
+  for (contador = 0, quebra = 1; contador != quebra;)
+  {
+    printf("Sexo: ");
+    scanf("%c", &lista_de_professores[qtd_professor].sexo);
+    getchar();
+    if (lista_de_professores[qtd_professor].sexo == 'F' || lista_de_professores[qtd_professor].sexo == 'f' || lista_de_professores[qtd_professor].sexo == 'M' || lista_de_professores[qtd_professor].sexo == 'm')
+      quebra = 0;
+    else
+      printf("Digite um sexo válido\n");
+  }
+}
 // Listagens
 
 int listarAlunos(aluno lista_de_alunos[], int qtd_aluno)
@@ -373,8 +433,10 @@ int listarProfessores(professor lista_de_professores[], int qtd_professor)
   {
     printf("\n");
     printf("Nome: %s", lista_de_professores[j].nome);
-    printf("Matrícula: %s", lista_de_professores[j].matricula);
-    printf("Data de nascimento: %s\n", lista_de_professores[j].nascimento);
+    printf("Matrícula: %d", lista_de_professores[j].matricula);
+    printf("Data de nascimento: %d/%d/%d\n", lista_de_professores[j].dataNasc.dia,
+           lista_de_professores[j].dataNasc.mes,
+           lista_de_professores[j].dataNasc.ano);
     printf("Sexo: %c\n", lista_de_professores[j].sexo);
     printf("CPF: %s\n", lista_de_professores[j].cpf);
     printf("=======================================\n");
@@ -384,4 +446,23 @@ int listarProfessores(professor lista_de_professores[], int qtd_professor)
   system("cls || clear");
 }
 
-
+int listarProfSexo(professor lista_de_professores[], int qtd_professor)
+{
+  int contador;
+  printf("## Lista de Professores##\n");
+  for (contador = 0; contador < qtd_professor; contador++)
+  {
+    if (lista_de_professores[contador].sexo == 'M' || lista_de_professores[contador].sexo == 'm')
+    {
+      printf("%d - %s", contador, lista_de_professores[contador].nome);
+    }
+  }
+  printf("## Lista de Professoras##\n");
+  for (contador = 0; contador < qtd_professor; contador++)
+  {
+    if (lista_de_professores[contador].sexo == 'F' || lista_de_professores[contador].sexo == 'f')
+    {
+      printf("%d - %s", contador, lista_de_professores[contador].nome);
+    }
+  }
+}

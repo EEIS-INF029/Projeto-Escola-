@@ -7,7 +7,7 @@
 
 /**/
 /*Comando para copiar o código*/
-/*gcc v03.c -o v02 -Wno-unused-result*/
+/*gcc v03.c -o v03 -Wno-unused-result*/
 // Struct de data
 typedef struct dataNascimento
 {
@@ -105,7 +105,7 @@ int main()
           system("cls || clear");
           break;
         case 6:
-          qtd_aluno = excluirDiscente(lista_de_alunos, qtd_aluno);
+          excluirDiscente(lista_de_alunos, qtd_aluno);
           break; 
         default:
           printf("Insira uma opção valida");
@@ -241,8 +241,7 @@ int cadastrarProfessor(professor lista_de_professores[], int qtd_professor)
   printf("Nome do Professor: ");
   fgets(lista_de_professores[qtd_professor].nome, 50, stdin);
   printf("Matrícula: ");
-  fgets(lista_de_professores[qtd_professor].matricula, 15, stdin);
-  printf("Data de nascimento: ");
+  validaData(lista_de_professores, qtd_);
   fgets(lista_de_professores[qtd_professor].nascimento, 11, stdin);
   getchar();
   printf("Sexo: ");
@@ -260,10 +259,16 @@ int excluirDiscente(aluno lista_de_alunos[], int qtd_aluno){
   //int remove_posicao; 
   printf("Insira o número da matrícula do discente: ");
   scanf("%d", &id);
-  for(i = id; i < qtd_aluno; i++){
+  for(i = id; i < qtd_aluno - 1 ; i++){
     lista_de_alunos[i] = lista_de_alunos[i + 1];  
-    qtd_aluno--; 
+    qtd_aluno--;
   }
+  /*if(id == qtd_aluno - 1){
+      qtd_aluno--;
+    } else{
+        
+    }*/
+
 }
 // Funções de validação
 
@@ -302,6 +307,41 @@ int validaData(aluno lista_de_alunos[], int qtd_aluno)
   }
 }
 
+int validaDataProf(professor lista_de_alunos[], int qtd_prof)
+{
+  int contador, quebra;
+  for (contador = 0, quebra = 1; contador != quebra;)
+  {
+    printf("Insira a data de nascimento:\n");
+    printf("Dia: ");
+    scanf("%d", &lista_de_alunos[qtd_aluno].dataNasc.dia);
+    if (lista_de_alunos[qtd_aluno].dataNasc.dia >= 01 && lista_de_alunos[qtd_aluno].dataNasc.dia < 32)
+      quebra = 0;
+    else
+      printf("Digite uma data válida!\n");
+  }
+
+  for (contador = 0, quebra = 1; contador != quebra;)
+  {
+    printf("Mês: ");
+    scanf("%d", &lista_de_alunos[qtd_aluno].dataNasc.mes);
+    if (lista_de_alunos[qtd_aluno].dataNasc.mes >= 01 && lista_de_alunos[qtd_aluno].dataNasc.mes < 13)
+      quebra = 0;
+    else
+      printf("Digite uma data válida!\n");
+  }
+
+  for (contador = 0, quebra = 1; contador != quebra;)
+  {
+    printf("Ano: ");
+    scanf("%d", &lista_de_alunos[qtd_aluno].dataNasc.ano);
+    if (lista_de_alunos[qtd_aluno].dataNasc.ano >= 1903 && lista_de_alunos[qtd_aluno].dataNasc.ano < 2022)
+      quebra = 0;
+    else
+      printf("Digite uma data válida!\n");
+  }
+}
+        
 int validarSexo(aluno lista_de_alunos[], int qtd_aluno)
 {
   int contador, quebra;
