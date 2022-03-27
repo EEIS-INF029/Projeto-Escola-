@@ -43,7 +43,8 @@ typedef struct materias{
   char nome[50];
   char codigo[50];
   int semestre;
-  /*professor docente;*/
+  char professor[50]; 
+  //professor docente;*/
 
 } disciplina;
 
@@ -143,7 +144,7 @@ int main()
         switch (opcao_prof)
         {
         case 0:
-          // Case para voltar ao menu principal
+          //Case para voltar ao menu principal
           break;
         case 1:
           if (qtd_professor < tamProfessores)
@@ -190,6 +191,7 @@ int main()
             //Cadastrar disciplina
             case 1:
               cadastrarDisciplina( lista_de_disciplinas,  qtd_disciplina, lista_de_professores, qtd_professor); 
+              qtd_disciplina++; 
             break;
             case 2:
               listarDisciplinas(lista_de_disciplinas, qtd_disciplina); 
@@ -237,8 +239,9 @@ int menu_disciplinas(){
 int cadastrarDisciplina(disciplina lista_de_disciplinas[], int qtd_disciplina, professor lista_de_professores[], int qtd_professor)  
 {
   char resposta;
+  int id; 
   printf("==============================\n");
-  printf("||Cadastro do(a) %d° disciplina||\n", qtd_disciplina + 1);
+  printf("||Cadastro da %d° disciplina||\n", qtd_disciplina + 1);
   printf("==============================\n");
   printf("\n");
   printf("Nome: ");
@@ -249,8 +252,10 @@ int cadastrarDisciplina(disciplina lista_de_disciplinas[], int qtd_disciplina, p
   scanf ("%d", &lista_de_disciplinas[qtd_disciplina].semestre);
   getchar();
   identificar_ID_prof(lista_de_professores, qtd_professor);
-
-  
+  printf("Digite o id do professor para inserir na disciplina: ");
+  scanf("%d", &id);
+  getchar();
+  strcpy (lista_de_disciplinas[qtd_disciplina].professor, lista_de_professores[id].nome); 
   system("cls || clear");
   return 0;
 }
@@ -266,8 +271,8 @@ int listarDisciplinas(disciplina lista_de_disciplinas[], int qtd_disciplina)
     printf("\n");
     printf("Nome: %s", lista_de_disciplinas[j].nome);
     printf("Código: %s", lista_de_disciplinas[j].codigo);
-    printf("Semestre: %d", lista_de_disciplinas[j].semestre);
-    /*printf("Professor: %s", lista_de_disciplinas[j].docente);*/ 
+    printf("Semestre: %d\n", lista_de_disciplinas[j].semestre);
+    printf("Professor: %s", lista_de_disciplinas[j].professor); 
     printf("=======================================\n");
   }
   printf("Pressione para voltar...");
