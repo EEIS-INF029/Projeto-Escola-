@@ -68,7 +68,8 @@ void listarAlunos(aluno lista_de_alunos[], int qtd_aluno);
 void listarAlunoSexo(aluno lista_de_alunos[], int qtd_aluno);
 void ordem_alfabetica_aluno(aluno lista_de_alunos[], int qtd_aluno);
 void listar_alunos_PorData(aluno lista_de_alunos[], int qtd_aluno);
-
+void aniversariante_do_mes(aluno lista_de_alunos[], int qtd_aluno);
+void listar_alunos_PorDia(aluno lista_de_alunos[], int qtd_aluno, int mes);
 // FUNÇÕES DE PROFESSORES
 // Menu
 int menu_docentes();
@@ -152,8 +153,11 @@ int main()
                   listar_alunos_PorData(lista_de_alunos, qtd_aluno);
                   break;  
                 case 6:
-                    qtd_aluno = excluirDiscente(lista_de_alunos, qtd_aluno);
-                    break;
+                  aniversariante_do_mes(lista_de_alunos, qtd_aluno);
+                  break;
+                case 7:
+                  qtd_aluno = excluirDiscente(lista_de_alunos, qtd_aluno);
+                  break;
                 default:
                     printf("Insira uma opção valida\n");
                     printf("Pressione uma tecla para voltar...");
@@ -321,7 +325,8 @@ int menu_discentes()
     printf("3 - Listar discentes por sexo\n");
     printf("4 - Listar discentes ordenados por nome\n");
     printf("5 - Listar discentes ordenados por data de nascimento\n");
-    printf("6 - Deletar discente\n");
+    printf("6 - Listar o aniversariante do mês");
+    printf("7 - Deletar discente\n");
     printf("0 - Voltar\n");
     scanf("%d", &opcao_aluno);
     getchar();
@@ -502,30 +507,84 @@ void ordem_alfabetica_aluno(aluno lista_de_alunos[], int qtd_aluno){
 }
 
 void listar_alunos_PorData(aluno lista_de_alunos[], int qtd_aluno){
-  int i, j;
+  int i, j, mes;
   char aux[80];
   int auxAno;
-  for (i=0; i <qtd_aluno; i++){
-    for (j=0; j < qtd_aluno; j++){
-      if (lista_de_alunos[i].dataNasc.ano < lista_de_alunos[j].dataNasc.ano) {
+  for (j=0; j < qtd_aluno; j++){
+      if (lista_de_alunos[i].dataNasc.dia < lista_de_alunos[j].dataNasc.dia) {
       strcpy (aux, lista_de_alunos[i].nome);
       strcpy (lista_de_alunos[i].nome, lista_de_alunos[j].nome);
       strcpy (lista_de_alunos[j].nome, aux);
-      auxAno = lista_de_alunos[i].dataNasc.ano;
-      lista_de_alunos[i].dataNasc.ano = lista_de_alunos[j].dataNasc.ano;   
-      lista_de_alunos[j].dataNasc.ano = auxAno;
-      }  
+      auxAno = lista_de_alunos[i].dataNasc.dia;
+      lista_de_alunos[i].dataNasc.dia = lista_de_alunos[j].dataNasc.dia;   
+      lista_de_alunos[j].dataNasc.dia = auxAno;  
     }
   }
 
   for (i=0; i< qtd_aluno ; i++){
-    printf("Nome: %s   Ano: %d\n", lista_de_alunos[i].nome, lista_de_alunos[i].dataNasc.ano);
+    printf("Nome: %s   Data: %d\n", lista_de_alunos[i].nome, lista_de_alunos[i].dataNasc.dia);
   }
 
   printf("Pressione para voltar...");
   getchar();
   system("cls || clear");
 }
+
+void aniversariante_do_mes(aluno lista_de_alunos[], int qtd_aluno){
+  int mes, i;
+  printf("Insira o mês que você deseja saber os aniversáriantes: ");
+  scanf("%d", &mes); 
+  getchar ();
+  
+  listar_alunos_PorDia(lista_de_alunos, qtd_aluno, mes); 
+  
+}
+
+void listar_alunos_PorDia(aluno lista_de_alunos[], int qtd_aluno, int mes){
+  
+  typedef struct listar {
+  char vetor[80];
+  int dia;
+  } alunos_p_dia;
+  
+  int i, j;
+  char aux[80];
+  int auxAno;
+  
+  alunos_p_dia assumindo_valores[j];
+  for (i = 0, j =0; i < qtd_aluno; i++){
+    if (lista_de_alunos[i].dataNasc.mes == mes){
+      strcpy (assumindo_valores[j].vetor, lista_de_alunos[i].nome);
+      assumindo_valores[j].dia =  lista_de_alunos[i].dataNasc.dia;
+      j++;
+    }
+  }
+  for ( i = 0; i < j; i++){
+    printf ("%d - %s", assumindo_valores[i].dia, assumindo_valores[i].vetor);
+  }
+/*}
+
+  for (j=0; j < qtd_aluno; j++){
+      if (lista_de_alunos[i].dataNasc.dia < lista_de_alunos[j].dataNasc.dia) {
+      strcpy (aux, lista_de_alunos[i].nome);
+      strcpy (lista_de_alunos[i].nome, lista_de_alunos[j].nome);
+      strcpy (lista_de_alunos[j].nome, aux);
+      auxAno = lista_de_alunos[i].dataNasc.dia;
+      lista_de_alunos[i].dataNasc.dia = lista_de_alunos[j].dataNasc.dia;   
+      lista_de_alunos[j].dataNasc.dia = auxAno;  
+    }
+  }
+  if(lista_de_alunos[i].dataNasc.mes == mes){
+    for (i=0; i< qtd_aluno ; i++){
+    printf("Nome: %s   Dia: %d\n", lista_de_alunos[i].nome, lista_de_alunos[i].dataNasc.dia);
+    }
+  }
+*/
+  printf("Pressione para voltar...");
+  getchar();
+  system("cls || clear");
+}
+  
 
 /*===================================FUNÇÕES DOS PROFESSORES===================================*/
 
