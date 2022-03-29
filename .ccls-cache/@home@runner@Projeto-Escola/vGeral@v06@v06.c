@@ -10,6 +10,11 @@
 /*gcc v06.c -o v06 -Wno-unused-result*/
 // Struct de data
 
+/*typedef struct inserir_disciplina{
+  char copiar_disciplina[tamDisciplinas];
+  char nomes_alunos[tamDisciplinas][contador]; 
+}inserir;*/
+
 typedef struct dataNascimento
 {
     int dia;
@@ -61,6 +66,8 @@ int excluirDiscente(aluno lista_de_alunos[], int qtd_aluno);
 // Listagens
 void listarAlunos(aluno lista_de_alunos[], int qtd_aluno);
 void listarAlunoSexo(aluno lista_de_alunos[], int qtd_aluno);
+void ordem_alfabetica_aluno(aluno lista_de_alunos[], int qtd_aluno);
+void listar_alunos_PorData(aluno lista_de_alunos[], int qtd_aluno);
 
 // FUNÇÕES DE PROFESSORES
 // Menu
@@ -72,7 +79,8 @@ void validarDataProf(professor lista_de_professores[], int qtd_professor);
 void validarSexoProf(professor lista_de_professores[], int qtd_professor);
 // Alteração
 // Listagens
-void listarProfessores(professor lista_de_professores[], int qtd_professor);
+void listarProfessores(professor lista_de_professores[], int qtd_professor); 
+void listarProfessor (professor lista_de_professores[], int qtd_professor);
 void listarProfSexo(professor lista_de_professores[], int qtd_professor);
 void ordem_alfabetica_prof(professor lista_de_professores[], int qtd_professor);
 void identificar_ID_prof(professor lista_de_professores[], int qtd_professor);
@@ -137,6 +145,12 @@ int main()
                 case 3:
                     listarAlunoSexo(lista_de_alunos, qtd_aluno);
                     break;
+                case 4:
+                  ordem_alfabetica_aluno(lista_de_alunos, qtd_aluno);
+                  break;
+                case 5:
+                  listar_alunos_PorData(lista_de_alunos, qtd_aluno);
+                  break;  
                 case 6:
                     qtd_aluno = excluirDiscente(lista_de_alunos, qtd_aluno);
                     break;
@@ -173,6 +187,7 @@ int main()
                         break;
                     }
                 case 2:
+                    listarProfessor(lista_de_professores, qtd_professor);
                     break;
                 case 3:
                     listarProfSexo(lista_de_professores, qtd_professor);
@@ -457,6 +472,58 @@ void listarAlunoSexo(aluno lista_de_alunos[], int qtd_aluno)
     system("cls || clear");
 }
 
+void ordem_alfabetica_aluno(aluno lista_de_alunos[], int qtd_aluno){
+  int contador1, contador2, comparador;
+
+    char auxiliar[80];
+
+    for (contador1 = 0; contador1 <= qtd_aluno; contador1++)
+    {
+        for (contador2 = contador1 + 1; contador2 <= qtd_aluno; contador2++)
+        {
+            comparador = strcmp(lista_de_alunos[contador1].nome, lista_de_alunos[contador2].nome);
+            if (comparador > 0)
+            {
+                strcpy(auxiliar, lista_de_alunos[contador2].nome);
+                strcpy(lista_de_alunos[contador2].nome, lista_de_alunos[contador1].nome);
+                strcpy(lista_de_alunos[contador1].nome, auxiliar);
+            }
+        }
+    }
+    for (contador1 = 0; contador1 <= qtd_aluno; contador1++)
+    {
+        printf("%s", lista_de_alunos[contador1].nome);
+    }
+    printf("Pressione para voltar...");
+    getchar();
+    system("cls || clear");
+
+  
+}
+
+void listar_alunos_PorData(aluno lista_de_alunos[], int qtd_aluno){
+  int i, j;
+  char aux[80];
+  int auxAno;
+  for (i=0; i <qtd_aluno; i++){
+    for (j=0; j < qtd_aluno; j++){
+      if (lista_de_alunos[i].dataNasc.ano > lista_de_alunos[j].dataNasc.ano) {
+      strcpy (aux, lista_de_alunos[i].nome);
+      strcpy (lista_de_alunos[i].nome, lista_de_alunos[j].nome);
+      strcpy (lista_de_alunos[j].nome, aux);
+      auxAno = lista_de_alunos[i].dataNasc.ano;
+      lista_de_alunos[i].dataNasc.ano = lista_de_alunos[j].dataNasc.ano;   
+      lista_de_alunos[j].dataNasc.ano = auxAno;
+      }  
+    }
+  }
+
+  for (i=0; i< qtd_aluno ; i++){
+    printf("Nome: %s\nAno:\n %d", lista_de_alunos[i].nome, lista_de_alunos[i].dataNasc.ano);
+  }
+  
+}
+
 /*===================================FUNÇÕES DOS PROFESSORES===================================*/
 
 // Menu
@@ -599,6 +666,29 @@ void listarProfSexo(professor lista_de_professores[], int qtd_professor)
     system("cls || clear");
 }
 
+void listarProfessor (professor lista_de_professores[], int qtd_professor)
+{
+    int j;
+    printf("======================\n");
+    printf("||Professores cadastrados||\n");
+    printf("======================\n");
+    for (j = 0; j < qtd_professor; j++)
+    {
+        printf("\n");
+        printf("Nome: %s", lista_de_professores[j].nome);
+        printf("Matrícula: %d\n", lista_de_professores[j].matricula);
+        printf("Data de nascimento: %d/%d/%d\n", lista_de_professores[j].dataNasc.dia,
+               lista_de_professores[j].dataNasc.mes,
+               lista_de_professores[j].dataNasc.ano);
+        printf("Sexo: %c\n", lista_de_professores[j].sexo);
+        printf("CPF: %s", lista_de_professores[j].cpf);
+        printf("=======================================\n");
+    }
+    printf("Pressione para voltar...");
+    getchar();
+    system("cls || clear");
+}
+          
 //////// LISTAR PROFESSORES EM ORDEM ALFABÉTICA
 void ordem_alfabetica_prof(professor lista_de_professores[], int qtd_professor)
 {
