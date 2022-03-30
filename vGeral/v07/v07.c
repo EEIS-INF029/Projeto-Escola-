@@ -483,7 +483,7 @@ void ordem_alfabetica_aluno(aluno lista_de_alunos[], int qtd_aluno){
     for(contador1 = 0; contador1 < qtd_aluno; contador1++){
       lista_de_alunos2[contador1] = lista_de_alunos[contador1];
     }
-    char auxiliar[80];
+    char auxiliar[50];
 
     for (contador1 = 0; contador1 <= tamAlunos; contador1++)
     {
@@ -717,7 +717,7 @@ void ordem_alfabetica_prof(professor lista_de_professores[], int qtd_professor)
     int contador1, contador2, comparador;
     char auxiliar[50];
     professor lista_de_professores2[tamProfessores];
-    for(contador1 = 0; contador1 < tamProfessores; contador1++){
+    for(contador1 = 0; contador1 < qtd_professor; contador1++){
       lista_de_professores2[contador1] = lista_de_professores[contador1];
     }
     for (contador1 = 0; contador1 <= qtd_professor; contador1++)
@@ -733,7 +733,7 @@ void ordem_alfabetica_prof(professor lista_de_professores[], int qtd_professor)
             }
         }
     }
-    for (contador1 = 0; contador1 <= qtd_professor; contador1++)
+    for (contador1 = 0; contador1 < qtd_professor; contador1++)
     {
         printf("%s", lista_de_professores2[contador1].nome);
     }
