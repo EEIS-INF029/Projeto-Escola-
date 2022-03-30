@@ -10,11 +10,6 @@
 /*gcc v07.c -o v07 -Wno-unused-result*/
 // Struct de data
 
-/*typedef struct inserir_disciplina{
-  char copiar_disciplina[tamDisciplinas];
-  char nomes_alunos[tamDisciplinas][contador]; 
-}inserir;*/
-
 typedef struct dataNascimento
 {
     int dia;
@@ -46,7 +41,7 @@ typedef struct materias
 {
     char nome[50];
     char codigo[50];
-    int semestre;
+    float semestre;
     char professor[50];
 
 } disciplina;
@@ -148,8 +143,8 @@ int main()
                   ordem_alfabetica_aluno(lista_de_alunos, qtd_aluno);
                   break;
                 case 5:
-                  printf ("Campo em construção!");
-                  printf ("Pressione para voltar.");
+                  printf ("Campo em construção!\n");
+                  printf ("Pressione para voltar...");
                   getchar ();
                   break;
                   /*listar_alunos_PorData(lista_de_alunos, qtd_aluno);*/
@@ -160,7 +155,7 @@ int main()
                   if(qtd_aluno > 0){
                   qtd_aluno = excluirDiscente(lista_de_alunos, qtd_aluno);
                   }else{
-                    printf("Não existe nenhum aluno cadastrado");
+                    printf("Não existe nenhum aluno cadastrado!");
                   }
                   break;
                 default:
@@ -203,6 +198,11 @@ int main()
                 case 4:
                     ordem_alfabetica_prof(lista_de_professores, qtd_professor);
                     break;
+                  case 5: 
+                    printf ("Campo em construção!\n");
+                    printf ("Pressione para voltar...");
+                    getchar ();
+                  break;
                 default:
                     printf("Insira uma opção valida\n");
                     printf("Pressione uma tecla para voltar...");
@@ -285,7 +285,7 @@ void cadastrarDisciplina(disciplina lista_de_disciplinas[], int qtd_disciplina, 
   printf("Código: ");
   fgets(lista_de_disciplinas[qtd_disciplina].codigo, 50, stdin);
   printf("Semestre: ");
-  scanf ("%d", &lista_de_disciplinas[qtd_disciplina].semestre);
+  scanf ("%f\n", &lista_de_disciplinas[qtd_disciplina].semestre);
   getchar();
   identificar_ID_prof(lista_de_professores, qtd_professor);
   printf("Digite o id do professor para inserir na disciplina: ");
@@ -306,7 +306,7 @@ void listarDisciplinas(disciplina lista_de_disciplinas[], int qtd_disciplina)
     printf("\n");
     printf("Nome: %s", lista_de_disciplinas[j].nome);
     printf("Código: %s", lista_de_disciplinas[j].codigo);
-    printf("Semestre: %d\n", lista_de_disciplinas[j].semestre);
+    printf("Semestre: %f\n", lista_de_disciplinas[j].semestre);
     printf("Professor: %s", lista_de_disciplinas[j].professor); 
     printf("=======================================\n");
   }
@@ -462,7 +462,7 @@ void listarAlunoSexo(aluno lista_de_alunos[], int qtd_aluno)
     {
         if (lista_de_alunos[contador].sexo == 'M' || lista_de_alunos[contador].sexo == 'm')
         {
-            printf("%s\n", lista_de_alunos[contador].nome);
+            printf("%s", lista_de_alunos[contador].nome);
         }
     }
     printf("## Lista de Alunas##\n");
@@ -479,25 +479,28 @@ void listarAlunoSexo(aluno lista_de_alunos[], int qtd_aluno)
 
 void ordem_alfabetica_aluno(aluno lista_de_alunos[], int qtd_aluno){
   int contador1, contador2, comparador;
-
+   aluno lista_de_alunos2[tamAlunos];
+    for(contador1 = 0; contador1 < qtd_aluno; contador1++){
+      lista_de_alunos2[contador1] = lista_de_alunos[contador1];
+    }
     char auxiliar[80];
 
-    for (contador1 = 0; contador1 <= qtd_aluno; contador1++)
+    for (contador1 = 0; contador1 <= tamAlunos; contador1++)
     {
         for (contador2 = contador1 + 1; contador2 <= qtd_aluno; contador2++)
         {
-            comparador = strcmp(lista_de_alunos[contador1].nome, lista_de_alunos[contador2].nome);
+            comparador = strcmp(lista_de_alunos2[contador1].nome, lista_de_alunos2[contador2].nome);
             if (comparador > 0)
             {
-                strcpy(auxiliar, lista_de_alunos[contador2].nome);
-                strcpy(lista_de_alunos[contador2].nome, lista_de_alunos[contador1].nome);
-                strcpy(lista_de_alunos[contador1].nome, auxiliar);
+                strcpy(auxiliar, lista_de_alunos2[contador2].nome);
+                strcpy(lista_de_alunos2[contador2].nome, lista_de_alunos2[contador1].nome);
+                strcpy(lista_de_alunos2[contador1].nome, auxiliar);
             }
         }
     }
     for (contador1 = 0; contador1 <= qtd_aluno; contador1++)
     {
-        printf("%s", lista_de_alunos[contador1].nome);
+        printf("%s", lista_de_alunos2[contador1].nome);
     }
     printf("Pressione para voltar...");
     getchar();
@@ -578,7 +581,7 @@ void cadastrarProfessor(professor lista_de_professores[], int qtd_professor)
     printf("Nome do Professor: ");
     fgets(lista_de_professores[qtd_professor].nome, 50, stdin);
     lista_de_professores[qtd_professor].matricula = qtd_professor;
-    printf("Matrícula: %d", lista_de_professores[qtd_professor].matricula);
+    printf("Matrícula: %d\n", lista_de_professores[qtd_professor].matricula);
     validarDataProf(lista_de_professores, qtd_professor);
     getchar();
     validarSexoProf(lista_de_professores, qtd_professor);
@@ -712,25 +715,27 @@ void listarProfessor (professor lista_de_professores[], int qtd_professor)
 void ordem_alfabetica_prof(professor lista_de_professores[], int qtd_professor)
 {
     int contador1, contador2, comparador;
-
-    char auxiliar[80];
-
+    char auxiliar[50];
+    professor lista_de_professores2[tamProfessores];
+    for(contador1 = 0; contador1 < tamProfessores; contador1++){
+      lista_de_professores2[contador1] = lista_de_professores[contador1];
+    }
     for (contador1 = 0; contador1 <= qtd_professor; contador1++)
     {
         for (contador2 = contador1 + 1; contador2 <= qtd_professor; contador2++)
         {
-            comparador = strcmp(lista_de_professores[contador1].nome, lista_de_professores[contador2].nome);
+            comparador = strcmp(lista_de_professores2[contador1].nome, lista_de_professores2[contador2].nome);
             if (comparador > 0)
             {
-                strcpy(auxiliar, lista_de_professores[contador2].nome);
-                strcpy(lista_de_professores[contador2].nome, lista_de_professores[contador1].nome);
-                strcpy(lista_de_professores[contador1].nome, auxiliar);
+                strcpy(auxiliar, lista_de_professores2[contador2].nome);
+                strcpy(lista_de_professores2[contador2].nome, lista_de_professores2[contador1].nome);
+                strcpy(lista_de_professores2[contador1].nome, auxiliar);
             }
         }
     }
     for (contador1 = 0; contador1 <= qtd_professor; contador1++)
     {
-        printf("%s", lista_de_professores[contador1].nome);
+        printf("%s", lista_de_professores2[contador1].nome);
     }
     printf("Pressione para voltar...");
     getchar();
