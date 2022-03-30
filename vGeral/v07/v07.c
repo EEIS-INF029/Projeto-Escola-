@@ -285,12 +285,11 @@ void cadastrarDisciplina(disciplina lista_de_disciplinas[], int qtd_disciplina, 
   printf("Código: ");
   fgets(lista_de_disciplinas[qtd_disciplina].codigo, 50, stdin);
   printf("Semestre: ");
-  scanf ("%f\n", &lista_de_disciplinas[qtd_disciplina].semestre);
-  getchar();
+  scanf ("%f", &lista_de_disciplinas[qtd_disciplina].semestre);
+  getchar(); 
   identificar_ID_prof(lista_de_professores, qtd_professor);
   printf("Digite o id do professor para inserir na disciplina: ");
   scanf("%d", &id);
-  getchar();
   strcpy (lista_de_disciplinas[qtd_disciplina].professor, lista_de_professores[id].nome); 
   system("cls || clear");
 }
@@ -306,7 +305,7 @@ void listarDisciplinas(disciplina lista_de_disciplinas[], int qtd_disciplina)
     printf("\n");
     printf("Nome: %s", lista_de_disciplinas[j].nome);
     printf("Código: %s", lista_de_disciplinas[j].codigo);
-    printf("Semestre: %f\n", lista_de_disciplinas[j].semestre);
+    printf("Semestre: %.1f\n", lista_de_disciplinas[j].semestre);
     printf("Professor: %s", lista_de_disciplinas[j].professor); 
     printf("=======================================\n");
   }
