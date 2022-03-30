@@ -45,7 +45,7 @@ typedef struct dadosProfessores
 typedef struct materias
 {
     char nome[50];
-    char codigo[50];
+    char codigo[10];
     int semestre;
     char professor[50];
 
@@ -110,7 +110,7 @@ int main()
     do
     {
         system("cls || clear");
-        opcao_principal = menu_principal();
+        opcao_principal = menu_principal();  // chama a função principal e atribui o retorno dela
         switch (opcao_principal)
         {
         case 0:
@@ -130,7 +130,7 @@ int main()
                     {
                         cadastrarAluno(lista_de_alunos, qtd_aluno);
                         qtd_aluno++;
-                        system("cls || clear");
+                        system("cls || clear"); //limpar output
                     }
                     else
                     {
@@ -165,6 +165,9 @@ int main()
                   qtd_aluno = excluirDiscente(lista_de_alunos, qtd_aluno);
                   }else{
                     printf("Não existe nenhum aluno cadastrado");
+                    printf("Pressione uma tecla para voltar...");
+                    getchar();
+                    system("cls || clear");
                   }
                   break;
                 default:
@@ -420,24 +423,27 @@ int excluirDiscente(aluno lista_de_alunos[], int qtd_aluno)
 {
     int id;
     int i;
-    int qtd;
     printf("Insira o número da matrícula do discente: ");
     scanf("%d", &id);
     if (id == qtd_aluno - 1)
     {
+      // se posição do aluno for a ultima, diminui o tamanho do vetor 
         qtd_aluno--;
     }
     else
     {
+    
         for (i = id; i < qtd_aluno - 1; i++)
         {
+          // valor na posição é substituido pelo valor da posição seguinte 
             lista_de_alunos[i] = lista_de_alunos[i + 1];
         }
+      //ultima posição é excluida para não ficar duplicado
         qtd_aluno--;
     }
-    qtd = qtd_aluno;
+    
     system("cls || clear");
-    return qtd;
+    return qtd_aluno;
 }
 
 // Listagem
@@ -543,6 +549,7 @@ for (i = 0; i<=qtd_aluno; i++){
   system("cls || clear");
 }
 */
+
 void aniversariante_do_mes(aluno lista_de_alunos[], int qtd_aluno){
   int mes;
   printf("Insira o mês que você deseja saber os aniversáriantes: ");
@@ -731,7 +738,7 @@ void listarProfSexo(professor lista_de_professores[], int qtd_professor)
     {
         if (lista_de_professores[contador].sexo == 'M' || lista_de_professores[contador].sexo == 'm')
         {
-            printf("%d - %s", contador, lista_de_professores[contador].nome);
+            printf(" %s", lista_de_professores[contador].nome);
         }
     }
     printf("## Lista de Professoras##\n");
@@ -739,7 +746,7 @@ void listarProfSexo(professor lista_de_professores[], int qtd_professor)
     {
         if (lista_de_professores[contador].sexo == 'F' || lista_de_professores[contador].sexo == 'f')
         {
-            printf("%d - %s", contador, lista_de_professores[contador].nome);
+            printf(" %s",  lista_de_professores[contador].nome);
         }
     }
     printf("Pressione para voltar...");

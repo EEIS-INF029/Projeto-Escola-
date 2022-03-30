@@ -12,7 +12,7 @@
 
 /*typedef struct inserir_disciplina{
   char copiar_disciplina[tamDisciplinas];
-  char nomes_alunos[tamDisciplinas][contador];
+  char nomes_alunos[tamDisciplinas][contador]; 
 }inserir;*/
 
 typedef struct dataNascimento
@@ -67,7 +67,7 @@ int excluirDiscente(aluno lista_de_alunos[], int qtd_aluno);
 void listarAlunos(aluno lista_de_alunos[], int qtd_aluno);
 void listarAlunoSexo(aluno lista_de_alunos[], int qtd_aluno);
 void ordem_alfabetica_aluno(aluno lista_de_alunos[], int qtd_aluno);
-// void listar_alunos_PorData(aluno lista_de_alunos[], int qtd_aluno);
+/*void listar_alunos_PorData(aluno lista_de_alunos[], int qtd_aluno);*/
 void aniversariante_do_mes(aluno lista_de_alunos[], int qtd_aluno);
 void listar_alunos_PorDia(aluno lista_de_alunos2[], int qtd_aluno, int mes);
 // FUNÇÕES DE PROFESSORES
@@ -80,8 +80,8 @@ void validarDataProf(professor lista_de_professores[], int qtd_professor);
 void validarSexoProf(professor lista_de_professores[], int qtd_professor);
 // Alteração
 // Listagens
-void listarProfessores(professor lista_de_professores[], int qtd_professor);
-void listarProfessor(professor lista_de_professores[], int qtd_professor);
+void listarProfessores(professor lista_de_professores[], int qtd_professor); 
+void listarProfessor (professor lista_de_professores[], int qtd_professor);
 void listarProfSexo(professor lista_de_professores[], int qtd_professor);
 void ordem_alfabetica_prof(professor lista_de_professores[], int qtd_professor);
 void identificar_ID_prof(professor lista_de_professores[], int qtd_professor);
@@ -145,32 +145,33 @@ int main()
                     listarAlunoSexo(lista_de_alunos, qtd_aluno);
                     break;
                 case 4:
-                    ordem_alfabetica_aluno(lista_de_alunos, qtd_aluno);
-                    break;
+                  ordem_alfabetica_aluno(lista_de_alunos, qtd_aluno);
+                  break;
                 case 5:
-                    aniversariante_do_mes(lista_de_alunos, qtd_aluno);
-                    break;
+                  printf ("Campo em construção!");
+                  printf ("Pressione para voltar.");
+                  getchar ();
+                  break;
+                  /*listar_alunos_PorData(lista_de_alunos, qtd_aluno);*/
                 case 6:
-                    if (qtd_aluno > 0)
-                    {
-                        qtd_aluno = excluirDiscente(lista_de_alunos, qtd_aluno);
-                    }
-                    else
-                    {
-                        printf("Não existe nenhum aluno cadastrado!\n");
-                        printf("Pressione uma tecla para voltar...");
-                        getchar();
-                    }
-                    break;
+                  aniversariante_do_mes(lista_de_alunos, qtd_aluno);
+                  break;
+                case 7:
+                  if(qtd_aluno > 0){
+                  qtd_aluno = excluirDiscente(lista_de_alunos, qtd_aluno);
+                  }else{
+                    printf("Não existe nenhum aluno cadastrado");
+                  }
+                  break;
                 default:
                     printf("Insira uma opção valida\n");
                     printf("Pressione uma tecla para voltar...");
                     getchar();
                     break;
                 }
-                system("cls || clear");
+                system ("cls||clear");
             } while (opcao_aluno != 0);
-            break;
+            break; 
         case 2:
             do
             {
@@ -191,8 +192,8 @@ int main()
                         printf("Lista de docentes cheia\n");
                         printf("Pressione uma tecla para voltar...");
                         getchar();
-                        break;
                     }
+                  break;
                 case 2:
                     listarProfessor(lista_de_professores, qtd_professor);
                     break;
@@ -208,17 +209,17 @@ int main()
                     getchar();
                     break;
                 }
-                system("cls || clear");
+                system ("cls||clear");
             } while (opcao_prof != 0);
-            break;
+            break; 
         case 3:
             do
             {
                 opcao_disciplina = menu_disciplinas();
                 switch (opcao_disciplina)
                 {
-                case 0:
-                    // Voltar
+                case 0: 
+                    //Voltar
                     break;
                 case 1:
                     cadastrarDisciplina(lista_de_disciplinas, qtd_disciplina, lista_de_professores, qtd_professor);
@@ -231,11 +232,11 @@ int main()
                     printf("Insira uma opção valida\n");
                     printf("Pressione uma tecla para voltar...");
                     getchar();
-                    break;
+                    break; 
                 }
-                system("cls || clear");
+                system ("cls||clear");
             } while (opcao_disciplina != 0);
-            break;
+            break; 
         }
     } while (opcao_principal != 0);
 }
@@ -271,45 +272,46 @@ int menu_disciplinas()
     return opcao_disciplinas;
 }
 // Cadastro disciplinas(Nome, código, Semestre, Professor)
-void cadastrarDisciplina(disciplina lista_de_disciplinas[], int qtd_disciplina, professor lista_de_professores[], int qtd_professor)
+void cadastrarDisciplina(disciplina lista_de_disciplinas[], int qtd_disciplina, professor lista_de_professores[], int qtd_professor)  
 {
-    // char resposta;
-    int id;
-    printf("==============================\n");
-    printf("||Cadastro da %d° disciplina||\n", qtd_disciplina + 1);
-    printf("==============================\n");
-    printf("\n");
-    printf("Nome: ");
-    fgets(lista_de_disciplinas[qtd_disciplina].nome, 50, stdin);
-    printf("Código: ");
-    fgets(lista_de_disciplinas[qtd_disciplina].codigo, 50, stdin);
-    printf("Semestre: ");
-    scanf("%d", &lista_de_disciplinas[qtd_disciplina].semestre);
-    getchar();
-    identificar_ID_prof(lista_de_professores, qtd_professor);
-    printf("Digite o id do professor para inserir na disciplina: ");
-    scanf("%d", &id);
-    getchar();
-    strcpy(lista_de_disciplinas[qtd_disciplina].professor, lista_de_professores[id].nome);
+  char resposta;
+  int id; 
+  printf("==============================\n");
+  printf("||Cadastro da %d° disciplina||\n", qtd_disciplina + 1);
+  printf("==============================\n");
+  printf("\n");
+  printf("Nome: ");
+  fgets(lista_de_disciplinas[qtd_disciplina].nome, 50, stdin); 
+  printf("Código: ");
+  fgets(lista_de_disciplinas[qtd_disciplina].codigo, 50, stdin);
+  printf("Semestre: ");
+  scanf ("%d", &lista_de_disciplinas[qtd_disciplina].semestre);
+  getchar();
+  identificar_ID_prof(lista_de_professores, qtd_professor);
+  printf("Digite o id do professor para inserir na disciplina: ");
+  scanf("%d", &id);
+  getchar();
+  strcpy (lista_de_disciplinas[qtd_disciplina].professor, lista_de_professores[id].nome); 
+  system("cls || clear");
 }
 
 void listarDisciplinas(disciplina lista_de_disciplinas[], int qtd_disciplina)
 {
-    int j;
-    printf("===========================\n");
-    printf("||Disciplinas cadastradas||\n");
-    printf("===========================\n");
-    for (j = 0; j < qtd_disciplina; j++)
-    {
-        printf("\n");
-        printf("Nome: %s", lista_de_disciplinas[j].nome);
-        printf("Código: %s", lista_de_disciplinas[j].codigo);
-        printf("Semestre: %d\n", lista_de_disciplinas[j].semestre);
-        printf("Professor: %s", lista_de_disciplinas[j].professor);
-        printf("=======================================\n");
-    }
-    printf("Pressione para voltar...");
-    getchar();
+  int j;
+  printf("===========================\n");
+  printf("||Disciplinas cadastradas||\n");
+  printf("===========================\n");
+  for (j = 0; j < qtd_disciplina; j++)
+  {
+    printf("\n");
+    printf("Nome: %s", lista_de_disciplinas[j].nome);
+    printf("Código: %s", lista_de_disciplinas[j].codigo);
+    printf("Semestre: %d\n", lista_de_disciplinas[j].semestre);
+    printf("Professor: %s", lista_de_disciplinas[j].professor); 
+    printf("=======================================\n");
+  }
+  printf("Pressione para voltar...");
+  getchar();
 }
 /*===================================FUNÇÕES DOS ALUNOS===================================*/
 
@@ -325,8 +327,9 @@ int menu_discentes()
     printf("2 - Listar discentes\n");
     printf("3 - Listar discentes por sexo\n");
     printf("4 - Listar discentes ordenados por nome\n");
-    printf("5 - Listar o aniversariante do mês\n");
-    printf("6 - Deletar discente\n");
+    printf("5 - Listar discentes ordenados por data de nascimento\n");
+    printf("6 - Listar o aniversariante do mês\n");
+    printf("7 - Deletar discente\n");
     printf("0 - Voltar\n");
     scanf("%d", &opcao_aluno);
     getchar();
@@ -343,9 +346,8 @@ void cadastrarAluno(aluno lista_de_alunos[], int qtd_aluno)
     printf("\n");
     printf("Nome: ");
     fgets(lista_de_alunos[qtd_aluno].nome, 50, stdin);
-    //lista_de_alunos[qtd_aluno].matricula = qtd_aluno; // Tirar
-    printf("Matrícula: %d\n", lista_de_alunos[qtd_aluno].matricula);
-    scanf("%d", &lista_de_alunos[qtd_aluno].matricula);
+    lista_de_alunos[qtd_aluno].matricula = qtd_aluno;
+    printf("Matrícula: %d\n", lista_de_alunos[qtd_aluno].matricula); 
     validarDataAluno(lista_de_alunos, qtd_aluno);
     getchar();
     validarSexoAluno(lista_de_alunos, qtd_aluno);
@@ -394,7 +396,7 @@ void validarSexoAluno(aluno lista_de_alunos[], int qtd_aluno)
     int contador, quebra;
     for (contador = 0, quebra = 1; contador != quebra;)
     {
-        printf("Sexo: %c\n", lista_de_alunos[qtd_aluno].sexo);
+        printf("Sexo: ");
         scanf("%c", &lista_de_alunos[qtd_aluno].sexo);
         getchar();
         if (lista_de_alunos[qtd_aluno].sexo == 'F' || lista_de_alunos[qtd_aluno].sexo == 'f' || lista_de_alunos[qtd_aluno].sexo == 'M' || lista_de_alunos[qtd_aluno].sexo == 'm')
@@ -425,7 +427,7 @@ int excluirDiscente(aluno lista_de_alunos[], int qtd_aluno)
         qtd_aluno--;
     }
     qtd = qtd_aluno;
-    return qtd;
+    return qtd_aluno;
 }
 
 // Listagem
@@ -449,6 +451,7 @@ void listarAlunos(aluno lista_de_alunos[], int qtd_aluno)
     }
     printf("Pressione para voltar...");
     getchar();
+    system ("cls||clear");
 }
 
 void listarAlunoSexo(aluno lista_de_alunos[], int qtd_aluno)
@@ -459,7 +462,7 @@ void listarAlunoSexo(aluno lista_de_alunos[], int qtd_aluno)
     {
         if (lista_de_alunos[contador].sexo == 'M' || lista_de_alunos[contador].sexo == 'm')
         {
-            printf("%d - %s", contador, lista_de_alunos[contador].nome);
+            printf("%s\n", lista_de_alunos[contador].nome);
         }
     }
     printf("## Lista de Alunas##\n");
@@ -467,16 +470,15 @@ void listarAlunoSexo(aluno lista_de_alunos[], int qtd_aluno)
     {
         if (lista_de_alunos[contador].sexo == 'F' || lista_de_alunos[contador].sexo == 'f')
         {
-            printf("%d - %s", contador, lista_de_alunos[contador].nome);
+            printf("%s", lista_de_alunos[contador].nome);
         }
     }
     printf("Pressione para voltar...");
     getchar();
 }
 
-void ordem_alfabetica_aluno(aluno lista_de_alunos[], int qtd_aluno)
-{
-    int contador1, contador2, comparador;
+void ordem_alfabetica_aluno(aluno lista_de_alunos[], int qtd_aluno){
+  int contador1, contador2, comparador;
 
     char auxiliar[80];
 
@@ -519,7 +521,7 @@ void listar_alunos_PorDia(aluno lista_de_alunos2[], int qtd_aluno, int mes)
     int i, j;
     int auxDia;
     aluno auxvet;
-    for (i = 0; i < qtd_aluno; i++)
+    /*for (i = 0; i < qtd_aluno; i++)
     {
         for (j = 1; j < qtd_aluno; j++)
         {
@@ -530,7 +532,7 @@ void listar_alunos_PorDia(aluno lista_de_alunos2[], int qtd_aluno, int mes)
                 lista_de_alunos2[j] = auxvet; 
             }
         }
-    }
+    }*/
 
     for (i = 0; i < qtd_aluno; i++)
     {
@@ -541,7 +543,9 @@ void listar_alunos_PorDia(aluno lista_de_alunos2[], int qtd_aluno, int mes)
     }
     printf("Pressione para voltar...");
     getchar();
+    system("cls || clear");
 }
+  
 
 /*===================================FUNÇÕES DOS PROFESSORES===================================*/
 
@@ -573,8 +577,8 @@ void cadastrarProfessor(professor lista_de_professores[], int qtd_professor)
     printf("\n");
     printf("Nome do Professor: ");
     fgets(lista_de_professores[qtd_professor].nome, 50, stdin);
-    printf("Matrícula: ");
-    scanf("%d", &lista_de_professores[qtd_professor].matricula);
+    lista_de_professores[qtd_professor].matricula = qtd_professor;
+    printf("Matrícula: %d", lista_de_professores[qtd_professor].matricula);
     validarDataProf(lista_de_professores, qtd_professor);
     getchar();
     validarSexoProf(lista_de_professores, qtd_professor);
@@ -682,7 +686,7 @@ void listarProfSexo(professor lista_de_professores[], int qtd_professor)
     getchar();
 }
 
-void listarProfessor(professor lista_de_professores[], int qtd_professor)
+void listarProfessor (professor lista_de_professores[], int qtd_professor)
 {
     int j;
     printf("======================\n");
@@ -703,7 +707,7 @@ void listarProfessor(professor lista_de_professores[], int qtd_professor)
     printf("Pressione para voltar...");
     getchar();
 }
-
+          
 //////// LISTAR PROFESSORES EM ORDEM ALFABÉTICA
 void ordem_alfabetica_prof(professor lista_de_professores[], int qtd_professor)
 {
@@ -732,32 +736,29 @@ void ordem_alfabetica_prof(professor lista_de_professores[], int qtd_professor)
     getchar();
 }
 
-void identificar_ID_prof(professor lista_de_professores[], int qtd_professor)
-{
-    char resposta;
-    printf("Deseja ver o id do professor?: ");
-    scanf("%c", &resposta);
+void identificar_ID_prof(professor lista_de_professores[], int qtd_professor){
+  char resposta; 
+  printf("Deseja ver o id do professor?: ");
+  scanf("%c", &resposta);
+  getchar(); 
+  if(resposta == 'S' || resposta == 's'){
+    system("cls || clear");
+    identificarProf(lista_de_professores, qtd_professor); 
+    printf("Pressione para voltar...");
     getchar();
-    if (resposta == 'S' || resposta == 's')
-    {
-        system("cls || clear");
-        identificarProf(lista_de_professores, qtd_professor);
-        printf("Pressione para voltar...");
-        getchar();
-        system("cls || clear");
-    }
+  }
 }
 
 void identificarProf(professor lista_de_professores[], int qtd_professor)
 {
-    int j;
-    printf("===============================\n");
-    printf("||Identificador de Professores||\n");
-    printf("===============================\n");
-    for (j = 0; j < qtd_professor; j++)
-    {
-        printf("\n");
-        printf("%d - %s", j, lista_de_professores[j].nome);
-        printf("=======================================\n");
-    }
+  int j;
+  printf("===============================\n");
+  printf("||Identificador de Professores||\n");
+  printf("===============================\n");
+  for (j = 0; j < qtd_professor; j++)
+  {
+    printf("\n");
+    printf("%d - %s", j, lista_de_professores[j].nome);
+    printf("=======================================\n");
+  }
 }

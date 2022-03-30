@@ -7,7 +7,7 @@
 #define tamDisciplinas 5
 /**/
 /*Comando para copiar o código*/
-/*gcc v06.c -o v06 -Wno-unused-result*/
+/*gcc v07.c -o v07 -Wno-unused-result*/
 // Struct de data
 
 /*typedef struct inserir_disciplina{
@@ -153,7 +153,6 @@ int main()
                   getchar ();
                   break;
                   /*listar_alunos_PorData(lista_de_alunos, qtd_aluno);*/
-                  
                 case 6:
                   aniversariante_do_mes(lista_de_alunos, qtd_aluno);
                   break;
