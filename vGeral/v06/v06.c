@@ -67,7 +67,7 @@ int excluirDiscente(aluno lista_de_alunos[], int qtd_aluno);
 void listarAlunos(aluno lista_de_alunos[], int qtd_aluno);
 void listarAlunoSexo(aluno lista_de_alunos[], int qtd_aluno);
 void ordem_alfabetica_aluno(aluno lista_de_alunos[], int qtd_aluno);
-void listar_alunos_PorData(aluno lista_de_alunos[], int qtd_aluno);
+/*void listar_alunos_PorData(aluno lista_de_alunos[], int qtd_aluno);*/
 void aniversariante_do_mes(aluno lista_de_alunos[], int qtd_aluno);
 void listar_alunos_PorDia(aluno lista_de_alunos[], int qtd_aluno, int mes);
 // FUNÇÕES DE PROFESSORES
@@ -150,13 +150,22 @@ int main()
                   ordem_alfabetica_aluno(lista_de_alunos, qtd_aluno);
                   break;
                 case 5:
-                  listar_alunos_PorData(lista_de_alunos, qtd_aluno);
-                  break;  
+                  printf ("Campo em construção!");
+                  printf ("Pressione para voltar.");
+                  getchar ();
+                  system ("cls||clear");
+                  break;
+                  /*listar_alunos_PorData(lista_de_alunos, qtd_aluno);*/
+                  
                 case 6:
                   aniversariante_do_mes(lista_de_alunos, qtd_aluno);
                   break;
                 case 7:
+                  if(qtd_aluno > 0){
                   qtd_aluno = excluirDiscente(lista_de_alunos, qtd_aluno);
+                  }else{
+                    printf("Não existe nenhum aluno cadastrado");
+                  }
                   break;
                 default:
                     printf("Insira uma opção valida\n");
@@ -185,11 +194,12 @@ int main()
                     else
                     {
                         printf("Lista de docentes cheia\n");
+                        
+                    }
                         printf("Pressione uma tecla para voltar...");
                         getchar();
                         system("cls || clear");
-                        break;
-                    }
+                  break;
                 case 2:
                     listarProfessor(lista_de_professores, qtd_professor);
                     break;
@@ -325,7 +335,7 @@ int menu_discentes()
     printf("3 - Listar discentes por sexo\n");
     printf("4 - Listar discentes ordenados por nome\n");
     printf("5 - Listar discentes ordenados por data de nascimento\n");
-    printf("6 - Listar o aniversariante do mês");
+    printf("6 - Listar o aniversariante do mês\n");
     printf("7 - Deletar discente\n");
     printf("0 - Voltar\n");
     scanf("%d", &opcao_aluno);
@@ -343,7 +353,7 @@ void cadastrarAluno(aluno lista_de_alunos[], int qtd_aluno)
     printf("\n");
     printf("Nome: ");
     fgets(lista_de_alunos[qtd_aluno].nome, 50, stdin);
-    lista_de_alunos[qtd_aluno].matricula = qtd_aluno;
+    lista_de_alunos[qtd_aluno].matricula = qtd_aluno; //Tirar
     printf("Matrícula: %d\n", lista_de_alunos[qtd_aluno].matricula);
     // fgets(lista_de_alunos[qtd_aluno].matricula, 15, stdin);
     validarDataAluno(lista_de_alunos, qtd_aluno);
@@ -426,6 +436,7 @@ int excluirDiscente(aluno lista_de_alunos[], int qtd_aluno)
         qtd_aluno--;
     }
     qtd = qtd_aluno;
+    system("cls || clear");
     return qtd;
 }
 
@@ -461,7 +472,7 @@ void listarAlunoSexo(aluno lista_de_alunos[], int qtd_aluno)
     {
         if (lista_de_alunos[contador].sexo == 'M' || lista_de_alunos[contador].sexo == 'm')
         {
-            printf("%d - %s", contador, lista_de_alunos[contador].nome);
+            printf("%s\n", lista_de_alunos[contador].nome);
         }
     }
     printf("## Lista de Alunas##\n");
@@ -469,7 +480,7 @@ void listarAlunoSexo(aluno lista_de_alunos[], int qtd_aluno)
     {
         if (lista_de_alunos[contador].sexo == 'F' || lista_de_alunos[contador].sexo == 'f')
         {
-            printf("%d - %s", contador, lista_de_alunos[contador].nome);
+            printf("%s", lista_de_alunos[contador].nome);
         }
     }
     printf("Pressione para voltar...");
@@ -505,37 +516,38 @@ void ordem_alfabetica_aluno(aluno lista_de_alunos[], int qtd_aluno){
 
   
 }
-
+/*
 void listar_alunos_PorData(aluno lista_de_alunos[], int qtd_aluno){
   int i, j, mes;
   char aux[80];
   int auxAno;
-  for (j=0; j < qtd_aluno; j++){
-      if (lista_de_alunos[i].dataNasc.dia < lista_de_alunos[j].dataNasc.dia) {
+for (i = 0; i<=qtd_aluno; i++){
+  for (j=1; j <= qtd_aluno; j++){
+      if (lista_de_alunos[i].dataNasc.ano >= lista_de_alunos[j].dataNasc.ano) {
       strcpy (aux, lista_de_alunos[i].nome);
       strcpy (lista_de_alunos[i].nome, lista_de_alunos[j].nome);
       strcpy (lista_de_alunos[j].nome, aux);
-      auxAno = lista_de_alunos[i].dataNasc.dia;
-      lista_de_alunos[i].dataNasc.dia = lista_de_alunos[j].dataNasc.dia;   
-      lista_de_alunos[j].dataNasc.dia = auxAno;  
+      auxAno = lista_de_alunos[i].dataNasc.ano;
+      lista_de_alunos[i].dataNasc.ano = lista_de_alunos[j].dataNasc.ano;   
+      lista_de_alunos[j].dataNasc.ano = auxAno;  
     }
   }
+}
 
   for (i=0; i< qtd_aluno ; i++){
-    printf("Nome: %s   Data: %d\n", lista_de_alunos[i].nome, lista_de_alunos[i].dataNasc.dia);
+    printf("Nome: %s   Data: %d\n", lista_de_alunos[i].nome, lista_de_alunos[i].dataNasc.ano);
   }
 
   printf("Pressione para voltar...");
   getchar();
   system("cls || clear");
 }
-
+*/
 void aniversariante_do_mes(aluno lista_de_alunos[], int qtd_aluno){
-  int mes, i;
+  int mes;
   printf("Insira o mês que você deseja saber os aniversáriantes: ");
   scanf("%d", &mes); 
   getchar ();
-  
   listar_alunos_PorDia(lista_de_alunos, qtd_aluno, mes); 
   
 }
@@ -551,8 +563,8 @@ void listar_alunos_PorDia(aluno lista_de_alunos[], int qtd_aluno, int mes){
   char aux[80];
   int auxAno;
   
-  alunos_p_dia assumindo_valores[j];
-  for (i = 0, j =0; i < qtd_aluno; i++){
+  alunos_p_dia assumindo_valores[qtd_aluno];
+  for (i = 0, j = 0; i < qtd_aluno; i++){
     if (lista_de_alunos[i].dataNasc.mes == mes){
       strcpy (assumindo_valores[j].vetor, lista_de_alunos[i].nome);
       assumindo_valores[j].dia =  lista_de_alunos[i].dataNasc.dia;
@@ -579,6 +591,13 @@ void listar_alunos_PorDia(aluno lista_de_alunos[], int qtd_aluno, int mes){
     printf("Nome: %s   Dia: %d\n", lista_de_alunos[i].nome, lista_de_alunos[i].dataNasc.dia);
     }
   }
+
+  for (i = 0; i< qtd_aluno ; i++){
+    if(lista_de_alunos[i].dataNasc.mes == mes){
+      printf("%d - %s\n", lista_de_alunos[i].dataNasc.dia, lista_de_alunos[i].nome);
+
+    }
+}
 */
   printf("Pressione para voltar...");
   getchar();
@@ -712,7 +731,7 @@ void listarProfSexo(professor lista_de_professores[], int qtd_professor)
     {
         if (lista_de_professores[contador].sexo == 'M' || lista_de_professores[contador].sexo == 'm')
         {
-            printf("%d - %s", contador, lista_de_professores[contador].nome);
+            printf(" %s", lista_de_professores[contador].nome);
         }
     }
     printf("## Lista de Professoras##\n");
@@ -720,7 +739,7 @@ void listarProfSexo(professor lista_de_professores[], int qtd_professor)
     {
         if (lista_de_professores[contador].sexo == 'F' || lista_de_professores[contador].sexo == 'f')
         {
-            printf("%d - %s", contador, lista_de_professores[contador].nome);
+            printf(" %s",  lista_de_professores[contador].nome);
         }
     }
     printf("Pressione para voltar...");

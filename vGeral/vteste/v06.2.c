@@ -56,12 +56,14 @@ int menu_discentes();
 void cadastrarAluno(aluno lista_de_alunos[], int qtd_aluno);
 void cadastrando_na_disciplina(aluno lista_de_alunos[], int qtd_aluno, disciplina lista_de_disciplinas, int qtd_disciplina); 
 void inserir_aluno_na_disciplina(aluno lista_de_alunos[], int qtd_aluno); 
+
 // Validações
 void validarDataAluno(aluno lista_de_alunos[], int qtd_aluno);
 void validarSexoAluno(aluno lista_de_alunos[], int qtd_aluno);
 // Alteração
 int excluirDiscente(aluno lista_de_alunos[], int qtd_aluno);
 // Listagens
+
 void listarAlunos(aluno lista_de_alunos[], int qtd_aluno);
 void listarAlunoSexo(aluno lista_de_alunos[], int qtd_aluno);
 void id_alunos (aluno lista_de_alunos[], int qtd_aluno);
@@ -69,11 +71,14 @@ void id_alunos (aluno lista_de_alunos[], int qtd_aluno);
 // FUNÇÕES DE PROFESSORES
 // Menu
 int menu_docentes();
+
 // Cadastro
 void cadastrarProfessor(professor lista_de_professores[], int qtd_professor);
+
 // Validações
 void validarDataProf(professor lista_de_professores[], int qtd_professor);
 void validarSexoProf(professor lista_de_professores[], int qtd_professor);
+
 // Alteração
 // Listagens
 void listarProfessores(professor lista_de_professores[], int qtd_professor);
@@ -81,6 +86,7 @@ void listarProfSexo(professor lista_de_professores[], int qtd_professor);
 void ordem_alfabetica_prof(professor lista_de_professores[], int qtd_professor);
 void identificar_ID_prof(professor lista_de_professores[], int qtd_professor);
 void identificarProf(professor lista_de_professores[], int qtd_professor);
+
 // FUNÇÕES DE DISCIPLINAS
 int menu_disciplinas();
 void cadastrarDisciplina(disciplina lista_de_disciplinas[], int qtd_disciplina, professor lista_de_professores[], int qtd_professor);
@@ -92,7 +98,7 @@ int main()
     aluno lista_de_alunos[tamAlunos];
     professor lista_de_professores[tamProfessores];
     disciplina lista_de_disciplinas[tamDisciplinas];
-    int opcao_principal;
+    int opcao_principal=0;
     int opcao_aluno = -1;
     int opcao_prof = -1;
     int opcao_disciplina = -1;
@@ -226,7 +232,9 @@ int main()
     } while (opcao_principal != 0);
 }
 
-/*===================================FUNÇÕES GERAIS===================================*/
+/*===================================
+        FUNÇÕES GERAIS
+===================================*/
 int menu_principal()
 {
     int opcao_principal;
@@ -241,7 +249,9 @@ int menu_principal()
     return opcao_principal;
 }
 
-/*===================================FUNÇÕES DISPLINAS===================================*/
+/*===================================
+        FUNÇÕES DISPLINAS
+===================================*/
 
 int menu_disciplinas()
 {
@@ -256,7 +266,7 @@ int menu_disciplinas()
     system("cls || clear");
     return opcao_disciplinas;
 }
-
+// FUNÇÃO DE CADASTRO DE DISCIPLINAS
 int menu_materias(disciplina lista_de_disciplinas[], int qtd_disciplina){
   int resposta, i;
   printf("INSIRA A OPÇÃO");
